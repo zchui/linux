@@ -1,0 +1,84 @@
+/ 表示根目录
+./ 表示当前目录
+../ 当前目录的上一级目录
+../../ 表示当前目录的上一级的上一级的目录
+
+系统版本：cat /etc/redhat-release
+系统位数（32/64）：getconf LONG_BIT
+查看内存：free -mh
+查看硬盘：df -h
+查看目录占用：du -bsh /usr
+
+配置host：vim /etc/hosts
+查看所有PATH值：export
+单独查看PATH环境变量：echo $PATH
+
+# 查看CPU信息（型号）
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
+# 查看物理CPU个数
+cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
+# 查看每个物理CPU中core的个数(即核数)
+cat /proc/cpuinfo| grep "cpu cores"| uniq
+# 查看逻辑CPU的个数
+cat /proc/cpuinfo| grep "processor"| wc -l
+
+文档内检索：/str
+磁盘文件搜索：find dir -name fileName
+磁盘搜索大文件：find /usr/lib/ -size +100M
+
+文档查看：
+cat dir（全屏）
+more dir（分页）
+less dir（最强大）shift + g 到末尾
+tail -f filename 把filename里最尾部的内容显示在屏幕上,并且不但刷新,看到最新内容
+
+# 远程复制
+本地到远程：scp FBAP-model-upgrade-tool-build20180330.tar.gz root@10.3.75.136:/home/zhangchenhui/
+
+mv source target
+用来对文件或目录重新命名，或者将文件从一个目录移到另一个目录中。
+source表示源文件或目录，target表示目标文件或目录。
+如果将一个文件移到一个已经存在的目标文件中，则目标文件的内容将被覆盖。
+
+删除文件夹：rm -rf dir
+删除文件：rm -f filename
+-r 就是向下递归，不管有多少级目录，一并删除
+-f 就是直接强行删除，不作任何提示的意思
+
+授权可执行（x）：chmod +x /opt/clean-bigdata-all.sh
+
+压缩：tar -zcvf test.tar.gz ./test
+解压：tar -zxvf test.tar.gz
+
+查看端口监听状态：netstat -nap | grep 22
+
+查看端口连接数：lsof -i:8080|wc -l
+查看进程文件打开数：for pidnum in `ps -ef | grep -i java | grep -v grep| awk '{print $2}' `; do openfile=`ll /proc/$pidnum/fd | wc -l `; echo $openfile"=="$pidnum; done | sort -rn 
+
+# 停止tomcat
+ps -ef|grep tomcat
+kill -9 pid
+
+#启动Tomcat
+./startup.sh
+./catalina run
+
+# firewall
+防火墙状态：firewall-cmd --state
+已开放端口：firewall-cmd --list-ports
+关闭防火墙：systemctl stop firewalld.service
+开启防火墙：systemctl start firewalld.service
+开启端口：firewall-cmd --zone=public --add-port=80/tcp --permanent（–permanent #永久生效，没有此参数重启后失效）
+
+# iptables防火墙
+防火墙状态：service iptables status
+已开放端口：
+关闭防火墙：service iptables stop
+开启防火墙：
+重启防火墙：
+
+# java 环境变量
+·用文本编辑器打开/etc/profile 在profile文件末尾加入： 
+export JAVA_HOME=/usr/share/jdk1.6.0_14 
+export PATH=$JAVA_HOME/bin:$PATH 
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
