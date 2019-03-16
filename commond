@@ -3,6 +3,8 @@
 ../ 当前目录的上一级目录
 ../../ 表示当前目录的上一级的上一级的目录
 
+后台运行：nohup sh fetch-coldhuman.sh >/tmp/fc.log 2>&1 &
+
 系统版本：cat /etc/redhat-release
 系统位数（32/64）：getconf LONG_BIT
 查看内存：free -mh
