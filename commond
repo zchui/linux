@@ -25,6 +25,7 @@ cat /proc/cpuinfo| grep "processor"| wc -l
 文档内检索：/str
 磁盘文件搜索：find dir -name fileName
 磁盘搜索大文件：find /usr/lib/ -size +100M
+查找文件是否包含字符: find ./ -name "*.txt" | xargs grep "542004"
 
 文档查看：
 cat dir（全屏）
